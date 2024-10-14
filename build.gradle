@@ -12,6 +12,10 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    /** Serialisation and deserialisation of Object <-> JSON */
+    // implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.18.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.0'
 }
 
 test {

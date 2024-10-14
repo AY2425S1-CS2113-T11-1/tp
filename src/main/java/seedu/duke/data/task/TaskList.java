@@ -2,6 +2,8 @@ package seedu.duke.data.task;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class TaskList {
     private final ArrayList<Task> tasks;
     /**
@@ -18,6 +20,11 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public void addTask(String description) {
+        Task task = new Task(description);
+        tasks.add(task);
     }
 
     /**
@@ -45,14 +52,16 @@ public class TaskList {
         }
         tasks.remove(index);
     }
-    
+
 
     public boolean contains(Task task) {
         return tasks.contains(task);
     }
+
     public boolean contains(int index) {
         return index >= 0 && index < getSize();
     }
+
     /**
      * Gets a task from the TaskList.
      * @param index Index of the task to be retrieved.
@@ -65,6 +74,8 @@ public class TaskList {
         }
         return tasks.get(index);
     }
+
+    @JsonIgnore
     public int getSize() {
         return tasks.size();
     }
@@ -86,22 +97,32 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
+        /** Catch tasks is empty */
+        if (tasks.isEmpty()) {
+            return "";
+        }
+
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
         return sb.toString();
     }
+
     public void printList() {
         System.out.println(this);
     }
+
     public static class TaskNotFoundException extends Exception {
         public TaskNotFoundException() {
             super("Input task is not found in the list.");
         }
     }
+
     public static class DuplicateTaskException extends Exception {
         public DuplicateTaskException() {
             super("Input task is already in the list.");

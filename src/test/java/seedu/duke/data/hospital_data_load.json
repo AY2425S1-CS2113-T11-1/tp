@@ -1,0 +1,26 @@
+{
+    "patients" : [ {
+      "name" : "Alice",
+      "tasksList" : {
+        "tasks" : [ {
+          "description" : "Consultation",
+          "isDone" : false
+        }, {
+          "description" : "Medication",
+          "isDone" : false
+        } ]
+      }
+    }, {
+      "name" : "Bob",
+      "tasksList" : {
+        "tasks" : [ {
+          "description" : "Surgery",
+          "isDone" : false
+        }, {
+          "description" : "Medication",
+          "isDone" : false
+        } ]
+      }
+    } ],
+    "hospitalName" : "NUH"
+  }
