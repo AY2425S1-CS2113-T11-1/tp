@@ -2,7 +2,8 @@ package seedu.duke.storage;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.System.Logger.Level;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,7 +17,11 @@ import seedu.duke.data.hospital.Hospital;
  * Represents a utility class for JSON operations.
  */
 public class JsonUtil {
-    private static System.Logger logger = System.getLogger("JsonUtil");
+    private static Logger logger = Logger.getLogger("JsonUtil");
+
+    static {
+        logger.setLevel(Level.SEVERE); // Only show warnings and errors
+    }
 
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT) // Readable format // print
@@ -27,7 +32,7 @@ public class JsonUtil {
             objectMapper.writeValue(new File(filePath), hospital);
         } catch (IOException e) {
             // TODO: Update error handler (yes I am lazy)
-            logger.log(Level.ERROR, "Failed to save data to file: " + e.getMessage());
+            logger.log(Level.WARNING, "Failed to save data to file: " + e.getMessage());
             System.err.println("Failed to save data to file: " + e.getMessage());
         }
         logger.log(Level.INFO, "Data saved successfully at: " + filePath);
@@ -42,13 +47,13 @@ public class JsonUtil {
 
             return hospital;
         } catch (JsonParseException e) {
-            logger.log(Level.ERROR, "Corrupted JSON data: " + e.getMessage());
+            logger.log(Level.WARNING, "Corrupted JSON data: " + e.getMessage());
             System.err.println("Corrupted JSON data: " + e.getMessage());
         } catch (JsonMappingException e) {
-            logger.log(Level.ERROR, "Error mapping JSON to object: " + e.getMessage());
+            logger.log(Level.WARNING, "Error mapping JSON to object: " + e.getMessage());
             System.err.println("Error mapping JSON to object: " + e.getMessage());
         } catch (IOException e) {
-            logger.log(Level.ERROR, "I/O error: " + e.getMessage());
+            logger.log(Level.WARNING, "I/O error: " + e.getMessage());
             System.err.println("I/O error: " + e.getMessage());
         }
 
@@ -66,7 +71,7 @@ public class JsonUtil {
 
             return hospitalJson;
         } catch (IOException e) {
-            logger.log(Level.ERROR, "Failed to convert object to JSON: " + e.getMessage());
+            logger.log(Level.WARNING, "Failed to convert object to JSON: " + e.getMessage());
             System.err.println("Failed to convert object to JSON: " + e.getMessage());
         }
 
@@ -79,7 +84,7 @@ public class JsonUtil {
         Hospital hospital = objectMapper.readValue(json, Hospital.class);
 
         if (hospital == null) {
-            logger.log(Level.ERROR, "Failed to convert JSON to object");
+            logger.log(Level.WARNING, "Failed to convert JSON to object");
             return new Hospital();
         }
 

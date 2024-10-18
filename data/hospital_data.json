@@ -1,25 +1,30 @@
 {
-    "patients" : [ {
+  "patients" : [ {
     "name" : "Alice",
     "taskList" : {
-        "tasks" : [ {
+      "tasks" : [ {
         "description" : "Consultation",
         "isDone" : true
-        }, {
+      }, {
         "description" : "Medication",
         "isDone" : false
-        } ]
+      } ]
     }
-    }, {
+  }, {
     "name" : "Bob",
     "taskList" : {
-        "tasks" : [ {
+      "tasks" : [ {
         "description" : "Surgery",
         "isDone" : false
-        }, {
+      }, {
         "description" : "Medication",
-        "isDone" : false
-        } ]
+        "isDone" : true
+      } ]
     }
-    } ]
+  }, {
+    "name" : "Cathy",
+    "taskList" : {
+      "tasks" : [ ]
+    }
+  } ]
 }

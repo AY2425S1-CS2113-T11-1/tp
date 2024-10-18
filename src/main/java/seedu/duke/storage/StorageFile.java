@@ -2,6 +2,8 @@ package seedu.duke.storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.duke.data.hospital.Hospital;
 
@@ -10,7 +12,11 @@ import seedu.duke.data.hospital.Hospital;
  */
 public class StorageFile {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
-    private static System.Logger logger = System.getLogger("StorageFile");
+    private static Logger logger = Logger.getLogger("StorageFile");
+
+    static {
+        logger.setLevel(Level.SEVERE); // Only show warnings and errors
+    }
 
     /** The file path of the storage file. */
     private final String filePath;
@@ -33,17 +39,17 @@ public class StorageFile {
     private void checkFileFound(String filePath) {
         File f = new File(filePath);
         if (!f.exists()) {
-            logger.log(System.Logger.Level.INFO, "File not found, creating new file: " + filePath);
+            logger.log(Level.INFO, "File not found, creating new file: " + filePath);
             try {
                 // Create the file if it does not exist
                 f.getParentFile().mkdirs();
                 f.createNewFile();
                 assert f.exists() : "File should exist after creation";
-                logger.log(System.Logger.Level.INFO, "File created successfully: " + filePath);
+                logger.log(Level.INFO, "File created successfully: " + filePath);
             } catch (IOException e) {
                 // TODO: Update error handler
                 System.out.println("Error creating file: " + e.getMessage());
-                logger.log(System.Logger.Level.ERROR, "Error creating file: " + e.getMessage());
+                logger.log(Level.WARNING, "Error creating file: " + e.getMessage());
                 System.exit(0);
             }
         }
@@ -51,12 +57,12 @@ public class StorageFile {
 
     public void save(Hospital hospital) {
         assert hospital != null : "Hospital cannot be null";
-        logger.log(System.Logger.Level.INFO, "Going to save data to file: " + filePath);
+        logger.log(Level.INFO, "Going to save data to file: " + filePath);
         JsonUtil.saveToFile(hospital, filePath);
     }
 
     public Hospital load() {
-        logger.log(System.Logger.Level.INFO, "Going to load data from file: " + filePath);
+        logger.log(Level.INFO, "Going to load data from file: " + filePath);
         return JsonUtil.loadFromFile(getFilePath());
     }
 
