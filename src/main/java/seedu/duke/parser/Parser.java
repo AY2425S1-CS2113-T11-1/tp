@@ -46,9 +46,11 @@ public class Parser {
         case "add":
             try {
                 if(state.getState() == StateType.MAIN_STATE){
-                    return new AddPatientCommand(parts[1]);
+                    String patientName = line.substring("add ".length()).trim();
+                    return new AddPatientCommand(patientName);
                 } else if (state.getState() == StateType.TASK_STATE){
-                    return new AddTaskCommand(parts[1]);
+                    String taskName = line.substring("add ".length()).trim();
+                    return new AddTaskCommand(taskName);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Non-Numerical Error");
