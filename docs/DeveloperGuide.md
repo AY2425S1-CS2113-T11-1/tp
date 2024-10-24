@@ -41,6 +41,28 @@ The following sequence diagram illustrates how the `AddPatientCommand` is execut
 - **If Condition**: The command checks if the patient already exists before adding the patient.
 - **Logging**: If a duplicate is detected, an error is logged.
 
+
+### **State Switching Feature**
+#### Implementation
+
+The state switching feature allows the system to change its mode of operation between `MAIN_STATE` (for patient management) and `TASK_STATE` (for task management). This allows the software to handle commands differently based on the current state.
+
+1. **User Input**: The user enters a command pertaining either to patients (in `MAIN_STATE`) or tasks (in `TASK_STATE`).
+2. **Command Parsing**: The `Parser` checks the current state of the software by interacting with the `State` class. Depending on the state, it interprets  the command differently.
+3. **State Checking**: The `State` class tracks the current state of the application. If the system is in `MAIN_STATE`, the `Parser` creates patient-related commands (e.g., `AddPatientCommand`). If it's in `TASK_STATE`, task-related commands (e.g., `AddTaskCommand`)
+4. **Command Execution**: The appropriate command is then executed. For example, in `MAIN_STATE`, it adds a new patient, while in `TASK_STATE`, it adds a new task to a patient's task list.
+5. **State Transitions**: Commands like `SelectPatientCommand` and `BackCommand`, trigger state transitions.
+
+#### Sequence Diagram
+
+The following sequence diagram illustrates how the state-switching mechanism works:
+
+![State-Switching Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StateSwitchingSequenceDiagram.png)
+
+- **State Checking**: When user inputs a command, the `Parser` queries the `State` object to check whether the system is in `MAIN_STATE` or `TASK_STATE`.
+- **State Transitions**: When a `SelectPatientCommand` is executed, the system transitions from `MAIN_STATE` to `TASK_STATE`. Vice versa for `BackCommand`.
+- **Command Execution**: Commands are executed based on the current state. For example, in `MAIN_STATE`, patient-related commands are processed, while in `TASK_STATE`, task-related commands are handled.
+
 ## Product scope
 ### Target user profile
 

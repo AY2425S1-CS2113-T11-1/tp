@@ -1,0 +1,31 @@
+@startuml
+actor User as U
+participant "Main" as M
+participant "UI" as UI
+participant "Parser" as P
+participant "State" as S
+participant "Command" as C
+
+U -> M: Execute main()
+M -> UI: readCommand()
+UI --> M: commandInput
+
+alt MAIN_STATE
+    M -> P: parseCommand(commandInput, MAIN_STATE)
+    P -> S: getState()
+    S --> P: MAIN_STATE
+    P -> C: create AddPatientCommand
+    C -> M: execute()
+
+else TASK_STATE
+    M -> P: parseCommand(commandInput, TASK_STATE)
+    P -> S: getState()
+    S --> P: TASK_STATE
+    P -> C: create AddTaskCommand
+    C -> M: execute()
+
+end
+
+M -> UI: showMessage(commandResult)
+
+@enduml

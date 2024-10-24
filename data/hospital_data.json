@@ -1,9 +1,0 @@
-{
-  "patients" : [ {
-    "name" : "tom",
-    "taskList" : {
-      "tasks" : [ ],
-      "completionRate" : "100.00%"
-    }
-  } ]
-}
