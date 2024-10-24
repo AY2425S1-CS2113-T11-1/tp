@@ -22,9 +22,13 @@ public class Ui {
         System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 
-    public void showTaskScreen(String patientName) {
+    public void showTaskScreen(String patientName, String patientTag) {
+        String tagFormatted = "";
+        if (patientTag != null) {
+            tagFormatted = " [" + patientTag + "]";
+        }
         showLine();
-        System.out.println("Patient: " + patientName);
+        System.out.println("Patient: " + patientName + tagFormatted);
         System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 

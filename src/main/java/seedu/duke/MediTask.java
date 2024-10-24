@@ -66,7 +66,7 @@ public class MediTask {
                 if (selectedPatient != null) {
                     assert selectedPatient != null : "A patient must be selected in TASK_STATE.";
                     // display selectedPatient name
-                    ui.showTaskScreen(selectedPatient.getName());
+                    ui.showTaskScreen(selectedPatient.getName(), selectedPatient.getTag());
                 }
                 String commandInput = ui.readCommand();
 

@@ -118,6 +118,15 @@ public class Parser {
             }
             break;
 
+        case "edit":
+            try {
+                return new EditParser().execute(line, state);
+            } catch (NumberFormatException e) {
+                System.out.println("Number format exception");
+                LOGGER.log(Level.WARNING, "Edit Command Error: Non-Numerical Error");
+            }
+            break;
+
         default:
             System.out.println("Unknown command");
             LOGGER.log(Level.WARNING, "Unknown Command Error");

@@ -29,11 +29,22 @@ public class Hospital {
         assert patients != null : "Patients list should not be null after initialization";
     }
 
+
     public void addPatient(String name) {
         assert name != null && !name.isEmpty() : "Patient name should not be null or empty";
         logger.log(Level.INFO, "Adding new patient: {0}", name);
 
         Patient newPatient = new Patient(name);
+        patients.add(newPatient);
+
+        logger.log(Level.INFO, "Patient added successfully: {0}", name);
+    }
+
+    public void addPatient(String name, String tag) {
+        assert name != null && !name.isEmpty() : "Patient name should not be null or empty";
+        logger.log(Level.INFO, "Adding new patient: {0}", name);
+
+        Patient newPatient = new Patient(name, tag);
         patients.add(newPatient);
 
         logger.log(Level.INFO, "Patient added successfully: {0}", name);
@@ -80,7 +91,9 @@ public class Hospital {
     public void printList() {
         StringBuilder resultMessage = new StringBuilder("Here are the patients in your list:\n");
         for (int i = 0; i < patients.size(); i++) {
-            resultMessage.append((i + 1)).append(". ").append(patients.get(i).getName()).append("\n");
+            Patient patient = patients.get(i);
+            String tag = (patient.getTag() != null && !patient.getTag().isEmpty()) ? " [" + patient.getTag() + "]" : "";
+            resultMessage.append((i + 1)).append(". ").append(patient.getName()).append(tag).append("\n");
         }
         System.out.println(resultMessage);
         logger.log(Level.INFO, "Printed patient list.");

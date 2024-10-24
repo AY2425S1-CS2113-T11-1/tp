@@ -11,13 +11,15 @@ public class AddPatientCommand extends HospitalCommand {
     private static final Logger logger = Logger.getLogger(AddPatientCommand.class.getName());
 
     private String name;
+    private String tag;
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
     }
 
-    public AddPatientCommand(String name) {
+    public AddPatientCommand(String name, String tag) {
         this.name = name;
+        this.tag = tag; //can be null if not tag provided
     }
 
     @Override
@@ -30,8 +32,13 @@ public class AddPatientCommand extends HospitalCommand {
             return new CommandResult(MESSAGE_DUPLICATE_PATIENT);
         }
 
-        hospital.addPatient(name);
-        String resultMessage = String.format(MESSAGE_SUCCESS, name);
+        hospital.addPatient(name, tag);
+        String resultMessage;
+        if (tag != null && !tag.isEmpty()) {
+            resultMessage = String.format(MESSAGE_SUCCESS, name + " [" + tag + "]");
+        } else {
+            resultMessage = String.format(MESSAGE_SUCCESS, name);
+        }
         System.out.println(resultMessage);
 
         return new CommandResult(resultMessage);

@@ -34,8 +34,14 @@ public class SelectPatientCommand extends HospitalCommand {
 
         try {
             String patientName = hospital.getPatient(index).getName();
-            String resultMessage = String.format(MESSAGE_SUCCESS, patientName);
+            String patientTag = hospital.getPatient(index).getTag();
+            String formattedTag = "";
+            if (patientTag != null){
+                formattedTag = " [" + patientTag + "]";
+            }
+            String resultMessage = String.format(MESSAGE_SUCCESS, patientName + formattedTag);
             state.setState(StateType.TASK_STATE);
+            logger.log(Level.INFO, "System is now in TASK_STATE for patient: {0}", patientName);
             System.out.println(resultMessage);
             return new CommandResult(resultMessage);
         } catch (Hospital.PatientNotFoundException e) {
