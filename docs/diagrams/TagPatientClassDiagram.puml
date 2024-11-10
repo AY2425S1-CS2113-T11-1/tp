@@ -35,8 +35,8 @@ class AddPatientCommand COMMAND_COLOR extends Command{
     + execute(): CommandResult
 }
 
-Ui --> Patient : displays
-Hospital "1" --> "*" Patient : manages
-AddPatientCommand --> Hospital : adds patient with tag
+Ui --> "displays" Patient
+Hospital "1" --> "manages *" Patient
+AddPatientCommand --> "adds patient with tag" Hospital
 
 @enduml

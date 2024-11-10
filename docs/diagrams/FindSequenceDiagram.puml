@@ -3,6 +3,7 @@
 
 !include style.puml
 skinparam ArrowFormatStyle plain
+skinparam style strictuml
 
 actor User
 participant Parser PARSER_COLOR
@@ -14,7 +15,7 @@ participant CommandResult PARSER_COLOR
 participant FindTaskCommand PARSER_COLOR
 participant TaskList PARSER_COLOR
 participant Logger LOGGER_COLOR
-scale 0.5
+scale 1.5
 skinparam defaultFontSize 20
 
 User -> Parser : parseCommand(line, state)
